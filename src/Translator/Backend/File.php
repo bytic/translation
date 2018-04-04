@@ -2,16 +2,15 @@
 
 namespace Nip\I18n\Translator\Backend;
 
-use Nip_File_System as FileSystem;
+use Nip\Filesystem\FileDisk;
+use League\Flysystem\Adapter\Local as LocalAdapter;
 
 /**
- * Nip Framework.
+ * Nip Framework
  *
  * @category   Nip
- *
  * @copyright  2009 Nip Framework
  * @license    http://www.opensource.org/licenses/mit-license.php The MIT License
- *
  * @version    SVN: $Id$
  */
 class File extends AbstractBackend
@@ -19,33 +18,80 @@ class File extends AbstractBackend
     protected $variableName = 'lang';
     protected $dictionary;
 
+    protected $filesystem = null;
+    protected $baseDirectory;
+
     /**
-     * Adds a language to the dictionary.
+     * @return mixed
+     */
+    public function getBaseDirectory()
+    {
+        return $this->baseDirectory;
+    }
+
+    /**
+     * @param mixed $baseDirectory
+     */
+    public function setBaseDirectory($baseDirectory)
+    {
+        $this->baseDirectory = $baseDirectory;
+    }
+
+    /**
+     * @param array $languages
+     */
+    public function addLanguages($languages)
+    {
+        foreach ($languages as $language) {
+            $this->addLanguage($language);
+        }
+    }
+
+    public function addLanguage($language)
+    {
+        $directory = $this->compileLanguageDirectory($language);
+
+        return $this->addLanguageFromPath($language, $directory);
+    }
+
+    protected function compileLanguageDirectory($lang)
+    {
+        return DIRECTORY_SEPARATOR . $lang;
+    }
+
+    /**
+     * Adds a language to the dictionary
      *
      * @param string $language
-     * @param string $path     Path to file containing translations
+     * @param string $path Path to file containing translations
      *
      * @return $this
      */
-    public function addLanguage($language, $path)
+    public function addLanguageFromPath($language, $path)
     {
         $this->languages[] = $language;
 
-        $resolvedIncludePath = stream_resolve_include_path($path);
-        $fromIncludePath = ($resolvedIncludePath !== false) ? $resolvedIncludePath : $path;
+        $filesystem = $this->getFilesystem();
+//        $resolvedIncludePath = stream_resolve_include_path($path);
+//        $fromIncludePath     = ($resolvedIncludePath !== false) ? $resolvedIncludePath : $path;
+        if ($filesystem->has($path)) {
+            $handler = $filesystem->get($path);
+            if ($handler->isDir()) {
+                $this->loadDirectory($language, $path);
 
-        if (is_dir($fromIncludePath)) {
-            $this->loadDirectory($language, $fromIncludePath);
-        } elseif (is_file($fromIncludePath)) {
-            $this->loadFile($language, $fromIncludePath);
-        } else {
-            trigger_error(
-                'Language file ['.$language.']['.$path.']['.$fromIncludePath.'] does not exist',
-                E_USER_ERROR
-            );
+                return $this;
+            } elseif ($handler->isFile()) {
+                $this->loadFile($language, $path);
+
+                return $this;
+
+            }
         }
 
-        return $this;
+        trigger_error(
+            "Language file [" . $language . "][" . $path . "][" . $this->getBaseDirectory() . "] does not exist",
+            E_USER_ERROR
+        );
     }
 
     /**
@@ -54,11 +100,13 @@ class File extends AbstractBackend
      */
     public function loadDirectory($language, $path)
     {
-        $files = FileSystem::instance()->scanDirectory($path, true, true);
+        $filesystem = $this->getFilesystem();
+        /** @var \SplFileInfo[] $files */
+        $files = $filesystem->listContents($path, true);
         if (is_array($files)) {
             foreach ($files as $file) {
-                if (FileSystem::instance()->getExtension($file) == 'php') {
-                    $this->loadFile($language, $file);
+                if ($file['extension'] == 'php') {
+                    $this->loadFile($language, $file['path']);
                 }
             }
         }
@@ -70,11 +118,13 @@ class File extends AbstractBackend
      */
     protected function loadFile($language, $path)
     {
-        if (file_exists($path)) {
-            ob_start();
+        $filesystem = $this->getFilesystem();
+        if ($filesystem->has($path)) {
             /** @noinspection PhpIncludeInspection */
-            $messages = include $path;
-            ob_clean();
+            $content = $filesystem->get($path)->read();
+            $content = str_replace(['<?php','?>'],'', $content);
+            $messages = eval($content);
+
             if (is_array($messages)) {
                 $this->loadMessages($language, $messages);
             } else {
@@ -103,9 +153,9 @@ class File extends AbstractBackend
     }
 
     /**
-     * Returns dictionary entry for $slug in $language.
+     * Returns dictionary entry for $slug in $language
      *
-     * @param string      $slug
+     * @param string $slug
      * @param string|bool $language
      *
      * @return string|bool
@@ -117,5 +167,18 @@ class File extends AbstractBackend
         }
 
         return false;
+    }
+
+    /**
+     * @return FileDisk|null
+     */
+    protected function getFilesystem()
+    {
+        if ($this->filesystem === null) {
+            $adapter          = new LocalAdapter($this->getBaseDirectory());
+            $this->filesystem = new FileDisk($adapter);
+        }
+
+        return $this->filesystem;
     }
 }
