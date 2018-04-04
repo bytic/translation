@@ -1,0 +1,31 @@
+{
+  "name": "bytic/translation",
+  "description": "Bytic translation component",
+  "authors": [
+    {
+      "name": "Gabriel Solomon",
+      "email": "hello@gabrielsolomon.ro"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Nip\\I18n\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Nip\\I18n\\Tests\\": "tests/",
+      "Nip\\I18n\\Fixtures\\": "tests/fixtures"
+    }
+  },
+  "require": {
+    "php": ">=5.5.0",
+    "bytic/filesystem": "^0.9"
+  },
+  "require-dev": {
+    "squizlabs/php_codesniffer": "^3.0",
+    "phpunit/phpunit": "^6.2",
+    "mockery/mockery": "^0.9"
+  }
+}Translator
+Translator.php
