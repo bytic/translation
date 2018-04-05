@@ -2,7 +2,7 @@
 
 namespace Nip\I18n\Translator\Traits;
 
-use Nip\I18n\Loaders\LoaderInterface;
+use Nip\I18n\Loader\LoaderInterface;
 
 trait HasLoaderTrait
 {
@@ -11,7 +11,6 @@ trait HasLoaderTrait
      * @var LoaderInterface[]
      */
     protected $loaders = [];
-
 
     /**
      * Adds a Loader.
@@ -23,7 +22,6 @@ trait HasLoaderTrait
     {
         $this->loaders[$format] = $loader;
     }
-
 
     /**
      * Gets the loaders.

@@ -22,4 +22,15 @@ class PhpFileLoaderTest extends AbstractTest
             $catalogue->all(MessageCatalogueInterface::DEFAULT_DOMAIN)
         );
     }
+
+    public function testAddDirectory()
+    {
+        $loader = new PhpFileLoader();
+        $resource = TEST_FIXTURE_PATH . '/languages/en/';
+        $catalogue = $loader->load($resource, 'en');
+
+        self::assertSame('en', $catalogue->getLocale());
+        self::assertSame('Day', $catalogue->get('day'));
+        self::assertSame('Subject', $catalogue->get('subject'));
+    }
 }
