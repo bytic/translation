@@ -3,6 +3,7 @@
 namespace Nip\I18n;
 
 use Nip\I18n\Translator\Backend\AbstractBackend;
+use Nip\I18n\Translator\Traits\HasLoaderTrait;
 use Nip\Request;
 use function Nip\url;
 
@@ -12,6 +13,8 @@ use function Nip\url;
  */
 class Translator
 {
+    use HasLoaderTrait;
+
     /**
      * @var bool
      */
