@@ -3,13 +3,14 @@
 namespace Nip\I18n\Loader;
 
 use Nip\I18n\Catalogue\MessageCatalogue;
+use Nip\I18n\Catalogue\MessageCatalogueInterface;
 
 abstract class ArrayLoader implements LoaderInterface
 {
     /**
      * {@inheritdoc}
      */
-    public function load($resource, $locale, $domain = 'messages')
+    public function load($resource, $locale, $domain = MessageCatalogueInterface::DEFAULT_DOMAIN)
     {
         $this->flatten($resource);
         $catalogue = new MessageCatalogue($locale);

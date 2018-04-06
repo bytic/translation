@@ -3,8 +3,11 @@
 namespace Nip\I18n;
 
 use Nip\I18n\Translator\Backend\AbstractBackend;
+use Nip\I18n\Translator\Traits\HasCataloguesTrait;
 use Nip\I18n\Translator\Traits\HasLoaderTrait;
-use Nip\Request;
+use Nip\I18n\Translator\Traits\HasLocaleTrait;
+use Nip\I18n\Translator\Traits\HasRequestTrait;
+use Nip\I18n\Translator\Traits\HasResourcesTrait;
 use function Nip\url;
 
 /**
@@ -13,7 +16,7 @@ use function Nip\url;
  */
 class Translator
 {
-    use HasLoaderTrait;
+    use HasLoaderTrait, HasCataloguesTrait, HasLocaleTrait, HasResourcesTrait, HasRequestTrait;
 
     /**
      * @var bool
@@ -36,21 +39,6 @@ class Translator
      * @var AbstractBackend
      */
     protected $backend;
-
-    /**
-     * @var Request
-     */
-    protected $request;
-
-    /**
-     * Translator constructor.
-     * @param AbstractBackend $backend
-     */
-    public function __construct(AbstractBackend $backend)
-    {
-        $this->setBackend($backend);
-        $this->setRequest(app('request'));
-    }
 
     /**
      * @return AbstractBackend
@@ -130,22 +118,6 @@ class Translator
     public function getLanguages()
     {
         return $this->backend->getLanguages();
-    }
-
-    /**
-     * @return Request
-     */
-    public function getRequest()
-    {
-        return $this->request;
-    }
-
-    /**
-     * @param mixed $request
-     */
-    public function setRequest($request)
-    {
-        $this->request = $request;
     }
 
     /**

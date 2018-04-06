@@ -24,11 +24,29 @@ trait HasLoaderTrait
     }
 
     /**
+     * @param string $format
+     * @return bool
+     */
+    public function hasLoader($format)
+    {
+        return isset($this->loaders[$format]);
+    }
+
+    /**
+     * @param $format
+     * @return LoaderInterface
+     */
+    public function getLoader($format)
+    {
+        return $this->loaders[$format];
+    }
+
+    /**
      * Gets the loaders.
      *
      * @return array LoaderInterface[]
      */
-    protected function getLoaders()
+    public function getLoaders()
     {
         return $this->loaders;
     }
