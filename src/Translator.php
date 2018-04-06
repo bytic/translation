@@ -37,37 +37,11 @@ class Translator
         'en' => 'en_US',
     ];
 
-    /**
-     * @var AbstractBackend
-     */
-    protected $backend;
-
-
     public function __construct(?string $locale)
     {
         $this->setLocale($locale);
     }
 
-    /**
-     * @return AbstractBackend
-     */
-    public function getBackend()
-    {
-        return $this->backend;
-    }
-
-    /**
-     * Sets the translation backend
-     * @param AbstractBackend $backend
-     * @return $this
-     */
-    public function setBackend($backend)
-    {
-        $this->backend = $backend;
-        $this->backend->setTranslator($this);
-
-        return $this;
-    }
 
     /**
      * @param $lang
@@ -191,46 +165,4 @@ class Translator
         return $this;
     }
 
-    /**
-     * Returns translation of $slug in given or selected $language
-     *
-     * @param string|boolean $slug
-     * @param array $params
-     * @param string|boolean $language
-     * @return string
-     */
-    public function translate($slug = false, $params = [], $language = false)
-    {
-        if (!$language) {
-            $language = $this->getLanguage();
-        }
-
-        $return = $this->backend->translate($slug, $language);
-
-        if ($return) {
-            if ($params) {
-                foreach ($params as $key => $value) {
-                    $return = str_replace("#{" . $key . "}", $value, $return);
-                }
-            }
-        }
-
-        return $return;
-    }
-
-    /**
-     * Returns translation of $slug in given or selected $language
-     *
-     * @param bool|string $slug
-     * @param bool|string $language
-     * @return boolean
-     */
-    public function hasTranslation($slug = false, $language = false)
-    {
-        if (!$language) {
-            $language = $this->getLanguage();
-        }
-
-        return $this->backend->hasTranslation($slug, $language);
-    }
 }

@@ -21,6 +21,21 @@ trait TranslateTrait
     }
 
     /**
+     * @param $id
+     * @param null $domain
+     * @param null $locale
+     * @return mixed
+     */
+    public function hasTrans($id, $domain = null, $locale = null)
+    {
+        if (null === $domain) {
+            $domain = MessageCatalogueInterface::DEFAULT_DOMAIN;
+        }
+
+        return $this->getCatalogue($locale)->has((string)$id, $domain);
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function transChoice($id, $number, array $parameters = array(), $domain = null, $locale = null)
@@ -47,4 +62,32 @@ trait TranslateTrait
         }
         return $this->formatter->choiceFormat($catalogue->get($id, $domain), $number, $locale, $parameters);
     }
+
+    /**
+     * Returns translation of $slug in given or selected $language
+     *
+     * @param string|boolean $slug
+     * @param array $params
+     * @param string|boolean $language
+     * @return string
+     * @deprecated Use new trans() method
+     */
+    public function translate($slug = false, $params = [], $language = false)
+    {
+        return $this->trans($slug, $params, null, $language);
+    }
+
+    /**
+     * Returns translation of $slug in given or selected $language
+     *
+     * @param bool|string $slug
+     * @param bool|string $language
+     * @return boolean
+     * @deprecated Use new hasTrans() method
+     */
+    public function hasTranslation($slug = false, $language = false)
+    {
+        return $this->hasTrans($slug, null, $language);
+    }
+
 }
