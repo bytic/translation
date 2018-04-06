@@ -5,7 +5,6 @@ namespace Nip\I18n\Translator\Traits;
 use Nip\I18n\Catalogue\MessageCatalogue;
 use Nip\I18n\Catalogue\MessageCatalogueInterface;
 use Nip\I18n\Exception\NotFoundResourceException;
-use Nip\I18n\Exception\RuntimeException;
 use Nip\I18n\Locale\LocaleValidator;
 
 /**
@@ -17,12 +16,13 @@ use Nip\I18n\Locale\LocaleValidator;
 trait HasCataloguesTrait
 {
     /**
-     * @var MessageCatalogueInterface[]
+     * @var MessageCatalogue[]|MessageCatalogueInterface[]
      */
     protected $catalogues = [];
 
     /**
-     * {@inheritdoc}
+     * @param null $locale
+     * @return MessageCatalogue|MessageCatalogueInterface
      */
     public function getCatalogue($locale = null)
     {

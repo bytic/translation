@@ -8,6 +8,7 @@ use Nip\I18n\Translator\Traits\HasLoaderTrait;
 use Nip\I18n\Translator\Traits\HasLocaleTrait;
 use Nip\I18n\Translator\Traits\HasRequestTrait;
 use Nip\I18n\Translator\Traits\HasResourcesTrait;
+use Nip\I18n\Translator\Traits\TranslateTrait;
 use function Nip\url;
 
 /**
@@ -16,7 +17,7 @@ use function Nip\url;
  */
 class Translator
 {
-    use HasLoaderTrait, HasCataloguesTrait, HasLocaleTrait, HasResourcesTrait, HasRequestTrait;
+    use HasLoaderTrait, HasCataloguesTrait, HasLocaleTrait, HasResourcesTrait, HasRequestTrait, TranslateTrait;
 
     /**
      * @var bool
@@ -39,6 +40,12 @@ class Translator
      * @var AbstractBackend
      */
     protected $backend;
+
+
+    public function __construct(?string $locale)
+    {
+        $this->setLocale($locale);
+    }
 
     /**
      * @return AbstractBackend

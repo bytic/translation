@@ -58,7 +58,7 @@ trait HasLocaleTrait
     public function setFallbackLocales(array $locales)
     {
         // needed as the fallback locales are linked to the already loaded catalogues
-        $this->catalogues = array();
+        $this->resetCatalogues();
         foreach ($locales as $locale) {
             LocaleValidator::assertValidLocale($locale);
         }

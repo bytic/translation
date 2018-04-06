@@ -5,7 +5,7 @@ namespace Nip\I18n\Loader;
 use Nip\I18n\Catalogue\MessageCatalogue;
 use Nip\I18n\Catalogue\MessageCatalogueInterface;
 
-abstract class ArrayLoader implements LoaderInterface
+class ArrayLoader implements LoaderInterface
 {
     /**
      * {@inheritdoc}

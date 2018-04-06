@@ -57,6 +57,7 @@ trait HasMessagesTrait
         if (isset($this->messages[$domain][$id])) {
             return $this->messages[$domain][$id];
         }
+
         if (null !== $this->fallbackCatalogue) {
             return $this->fallbackCatalogue->get($id, $domain);
         }
