@@ -4,6 +4,7 @@ namespace Nip\I18n\Tests\Form;
 
 use Nip\Container\Container;
 use Nip\Container\ContainerInterface;
+use Nip\I18n\Translator;
 use Nip\I18n\Translator\Backend\AbstractBackend;
 use Nip\I18n\Translator\Backend\File;
 use Nip\I18n\TranslatorServiceProvider;
@@ -28,8 +29,12 @@ class TranslatorServiceProviderTest extends AbstractTest
         $container = $provider->getContainer();
         self::assertInstanceOf(ContainerInterface::class, $container);
 
-        self::assertInstanceOf(File::class, $container->get('translation.loader'));
-        self::assertInstanceOf(File::class, $container->get(AbstractBackend::class));
+        $translator = $container->get('translator');
+        self::assertInstanceOf(Translator::class, $translator);
+
+        self::assertSame('Day', $translator->trans('day'));
+        self::assertSame('Day', $translator->trans('day', [], null, 'en'));
+        self::assertSame('Zi', $translator->trans('day', [], null, 'ro'));
     }
 
     protected function getContainer()

@@ -3,8 +3,7 @@
 namespace Nip\I18n;
 
 use Nip\Container\ServiceProviders\Providers\AbstractSignatureServiceProvider;
-use Nip\I18n\Translator\Backend\AbstractBackend;
-use Nip\I18n\Translator\Backend\File;
+use Nip\I18n\Loader\PhpFileLoader;
 
 /**
  * Class MailServiceProvider
@@ -20,9 +19,9 @@ class TranslatorServiceProvider extends AbstractSignatureServiceProvider
      */
     public function register()
     {
-        $this->registerTranslator();
         $this->registerLanguages();
-        $this->registerLoader();
+        $this->registerTranslator();
+        $this->registerResources();
     }
 
     /**
@@ -32,8 +31,12 @@ class TranslatorServiceProvider extends AbstractSignatureServiceProvider
      */
     protected function registerTranslator()
     {
-        $this->getContainer()->share('translator', Translator::class)
-            ->withArgument(AbstractBackend::class);
+        $this->getContainer()
+            ->share('translator', function () {
+                $translator = new Translator('en');
+                $translator->addLoader('php', new PhpFileLoader());
+                return $translator;
+            });
     }
 
     /**
@@ -41,14 +44,16 @@ class TranslatorServiceProvider extends AbstractSignatureServiceProvider
      *
      * @return void
      */
-    protected function registerLoader()
+    protected function registerResources()
     {
-        $this->getContainer()->share('translation.loader', function () {
-            $backend = $this->createFileBackend();
-            return $backend;
-        });
+        $basDirectory = $this->getLanguageDirectory();
+        $languages = $this->getContainer()->get('translation.languages');
 
-        $this->getContainer()->alias('translation.loader', AbstractBackend::class);
+        $translator = $this->getContainer()->get('translator');
+
+        foreach ($languages as $language) {
+            $translator->addResource('php', $basDirectory . DIRECTORY_SEPARATOR . $language, $language);
+        }
     }
 
     protected function registerLanguages()
@@ -56,21 +61,6 @@ class TranslatorServiceProvider extends AbstractSignatureServiceProvider
         $this->getContainer()->share('translation.languages', function () {
             return $this->getLanguages();
         });
-    }
-
-    /**
-     * @return File
-     */
-    protected function createFileBackend()
-    {
-        /** @var File $backend */
-        $backend = $this->getContainer()->get(File::class);
-        $backend->setBaseDirectory($this->getLanguageDirectory());
-
-        $languages = $this->getContainer()->get('translation.languages');
-        $backend->addLanguages($languages);
-
-        return $backend;
     }
 
     /**
@@ -84,7 +74,7 @@ class TranslatorServiceProvider extends AbstractSignatureServiceProvider
     /**
      * @return null
      */
-    public function getLanguages()
+    protected function getLanguages()
     {
         if ($this->languages === null) {
             $this->initLanguages();
@@ -103,12 +93,14 @@ class TranslatorServiceProvider extends AbstractSignatureServiceProvider
      */
     protected function generateLanguages()
     {
+        /** @noinspection PhpUndefinedFunctionInspection */
         $languages = config('app.locale.enabled');
 
         return is_array($languages) ? $languages : explode(',', $languages);
     }
 
     /**
+     * Made public to allow testing
      * @param null $languages
      */
     public function setLanguages($languages)
@@ -119,7 +111,7 @@ class TranslatorServiceProvider extends AbstractSignatureServiceProvider
     /**
      * @return null
      */
-    public function getLanguageDirectory()
+    protected function getLanguageDirectory()
     {
         if ($this->languageDirectory === null) {
             $this->initLanguageDirectory();
@@ -129,6 +121,7 @@ class TranslatorServiceProvider extends AbstractSignatureServiceProvider
     }
 
     /**
+     * Made public to allow testing
      * @param null $languageDirectory
      */
     public function setLanguageDirectory($languageDirectory)
@@ -146,6 +139,7 @@ class TranslatorServiceProvider extends AbstractSignatureServiceProvider
      */
     protected function generateLanguageDirectory()
     {
+        /** @noinspection PhpUndefinedFunctionInspection */
         return app('path.lang');
     }
 }
