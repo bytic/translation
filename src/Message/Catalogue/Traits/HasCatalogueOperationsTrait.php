@@ -1,9 +1,9 @@
 <?php
 
-namespace Nip\I18n\Catalogue\Traits;
+namespace Nip\I18n\Message\Catalogue\Traits;
 
-use Nip\I18n\Catalogue\MessageCatalogueInterface;
-use Nip\I18n\Catalogue\MetadataAwareInterface;
+use Nip\I18n\Message\Catalogue\MessageCatalogueInterface;
+use Nip\I18n\Message\Catalogue\MetadataAwareInterface;
 use Nip\I18n\Exception\LogicException;
 
 trait HasCatalogueOperationsTrait

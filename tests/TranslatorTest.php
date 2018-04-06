@@ -2,7 +2,7 @@
 
 namespace Nip\I18n\Tests;
 
-use Nip\I18n\Catalogue\MessageCatalogue;
+use Nip\I18n\Message\Catalogue\MessageCatalogue;
 use Nip\I18n\Loader\ArrayLoader;
 use Nip\I18n\Translator;
 
@@ -27,15 +27,18 @@ class TranslatorTest extends AbstractTest
         $this->assertEquals(new MessageCatalogue('fr'), $translator->getCatalogue('fr'));
     }
 
-    public function testTrans()
+    /**
+     * @dataProvider getTransDataProvider
+     */
+    public function testTrans($expected, $id, $translation, $parameters, $locale, $domain)
     {
         $translator = new Translator('en');
-
         $translator->addLoader('array', new ArrayLoader());
-        $translator->addResource('array', ['foo' => 'foofoo'], 'en');
+        $translator->addResource('array', array((string) $id => $translation), $locale, $domain);
 
-        $this->assertEquals('foofoo', $translator->trans('foo'));
+        $this->assertEquals($expected, $translator->trans($id, $parameters, $domain, $locale));
     }
+
 
     public function testAddResourceAfterTrans()
     {
@@ -50,5 +53,13 @@ class TranslatorTest extends AbstractTest
         $translator->addResource('array', array('bar' => 'foobar'), 'en');
         $this->assertEquals('foobar', $translator->trans('bar'));
         $this->assertEquals('foofoo', $translator->trans('foo'));
+    }
+
+    public function getTransDataProvider()
+    {
+        return [
+            ['Symfony est super !', 'Symfony is great!', 'Symfony est super !', [], 'fr', ''],
+            ['Symfony est awesome !', 'Symfony is %what%!', 'Symfony est #{what} !', ['what' => 'awesome'], 'fr', '']
+        ];
     }
 }

@@ -2,7 +2,9 @@
 
 namespace Nip\I18n\Translator\Traits;
 
-use Nip\I18n\Catalogue\MessageCatalogueInterface;
+use Nip\I18n\Exception\LogicException;
+use Nip\I18n\Message\Catalogue\MessageCatalogueInterface;
+use Nip\I18n\Message\Formatter\ChoiceMessageFormatterInterface;
 
 trait TranslateTrait
 {
@@ -15,8 +17,7 @@ trait TranslateTrait
             $domain = MessageCatalogueInterface::DEFAULT_DOMAIN;
         }
         $message = $this->getCatalogue($locale)->get((string)$id, $domain);
-        return $message;
-        return $this->formatter->format($message, $locale, $parameters);
+        return $this->getFormatter()->format($message, $locale, $parameters);
     }
 
     /**
@@ -25,8 +26,10 @@ trait TranslateTrait
     public function transChoice($id, $number, array $parameters = array(), $domain = null, $locale = null)
     {
         if (!$this->formatter instanceof ChoiceMessageFormatterInterface) {
-            throw new LogicException(sprintf('The formatter "%s" does not support plural translations.',
-                get_class($this->formatter)));
+            throw new LogicException(
+                sprintf('The formatter "%s" does not support plural translations.',
+                    get_class($this->formatter))
+            );
         }
         if (null === $domain) {
             $domain = 'messages';

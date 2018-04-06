@@ -1,13 +1,13 @@
 <?php
 
-namespace Nip\I18n\Catalogue;
+namespace Nip\I18n\Message\Catalogue;
 
-use Nip\I18n\Catalogue\Traits\HasCatalogueOperationsTrait;
-use Nip\I18n\Catalogue\Traits\HasFallbackCatalogueTrait;
-use Nip\I18n\Catalogue\Traits\HasLocaleTrait;
-use Nip\I18n\Catalogue\Traits\HasMessagesTrait;
-use Nip\I18n\Catalogue\Traits\HasMetadataTrait;
-use Nip\I18n\Catalogue\Traits\HasResourcesTrait;
+use Nip\I18n\Message\Catalogue\Traits\HasCatalogueOperationsTrait;
+use Nip\I18n\Message\Catalogue\Traits\HasFallbackCatalogueTrait;
+use Nip\I18n\Message\Catalogue\Traits\HasLocaleTrait;
+use Nip\I18n\Message\Catalogue\Traits\HasMessagesTrait;
+use Nip\I18n\Message\Catalogue\Traits\HasMetadataTrait;
+use Nip\I18n\Message\Catalogue\Traits\HasResourcesTrait;
 
 class MessageCatalogue implements MessageCatalogueInterface, MetadataAwareInterface
 {

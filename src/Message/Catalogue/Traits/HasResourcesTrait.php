@@ -1,6 +1,6 @@
 <?php
 
-namespace Nip\I18n\Catalogue\Traits;
+namespace Nip\I18n\Message\Catalogue\Traits;
 
 use Nip\I18n\Resource\ResourceInterface;
 

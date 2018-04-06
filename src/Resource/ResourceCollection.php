@@ -3,7 +3,7 @@
 namespace Nip\I18n\Resource;
 
 use Nip\Collections\Collection;
-use Nip\I18n\Catalogue\MessageCatalogueInterface;
+use Nip\I18n\Message\Catalogue\MessageCatalogueInterface;
 use Nip\I18n\Exception\RuntimeException;
 use Nip\I18n\Translator;
 

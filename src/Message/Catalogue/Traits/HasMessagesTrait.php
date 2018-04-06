@@ -1,8 +1,8 @@
 <?php
 
-namespace Nip\I18n\Catalogue\Traits;
+namespace Nip\I18n\Message\Catalogue\Traits;
 
-use Nip\I18n\Catalogue\MessageCatalogueInterface;
+use Nip\I18n\Message\Catalogue\MessageCatalogueInterface;
 
 trait HasMessagesTrait
 {

@@ -2,7 +2,7 @@
 
 namespace Nip\I18n\Tests\Translator\Backend;
 
-use Nip\I18n\Catalogue\MessageCatalogueInterface;
+use Nip\I18n\Message\Catalogue\MessageCatalogueInterface;
 use Nip\I18n\Loader\PhpFileLoader;
 use Nip\I18n\Tests\AbstractTest;
 

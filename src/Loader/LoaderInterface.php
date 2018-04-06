@@ -2,7 +2,7 @@
 
 namespace Nip\I18n\Loader;
 
-use Nip\I18n\Catalogue\MessageCatalogueInterface;
+use Nip\I18n\Message\Catalogue\MessageCatalogueInterface;
 
 interface LoaderInterface
 {

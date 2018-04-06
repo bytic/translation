@@ -2,7 +2,7 @@
 
 namespace Nip\I18n\Resource;
 
-use Nip\I18n\Catalogue\MessageCatalogueInterface;
+use Nip\I18n\Message\Catalogue\MessageCatalogueInterface;
 
 class ResourceFactory
 {

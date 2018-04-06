@@ -4,6 +4,7 @@ namespace Nip\I18n;
 
 use Nip\I18n\Translator\Backend\AbstractBackend;
 use Nip\I18n\Translator\Traits\HasCataloguesTrait;
+use Nip\I18n\Translator\Traits\HasFormatterTrait;
 use Nip\I18n\Translator\Traits\HasLoaderTrait;
 use Nip\I18n\Translator\Traits\HasLocaleTrait;
 use Nip\I18n\Translator\Traits\HasRequestTrait;
@@ -17,7 +18,7 @@ use function Nip\url;
  */
 class Translator
 {
-    use HasLoaderTrait, HasCataloguesTrait, HasLocaleTrait, HasResourcesTrait, HasRequestTrait, TranslateTrait;
+    use HasLoaderTrait, HasCataloguesTrait, HasLocaleTrait, HasResourcesTrait, HasRequestTrait, TranslateTrait, HasFormatterTrait;
 
     /**
      * @var bool

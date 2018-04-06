@@ -2,8 +2,8 @@
 
 namespace Nip\I18n\Loader;
 
-use Nip\I18n\Catalogue\MessageCatalogue;
-use Nip\I18n\Catalogue\MessageCatalogueInterface;
+use Nip\I18n\Message\Catalogue\MessageCatalogue;
+use Nip\I18n\Message\Catalogue\MessageCatalogueInterface;
 
 class ArrayLoader implements LoaderInterface
 {

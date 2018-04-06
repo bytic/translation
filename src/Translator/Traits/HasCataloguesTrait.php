@@ -2,8 +2,8 @@
 
 namespace Nip\I18n\Translator\Traits;
 
-use Nip\I18n\Catalogue\MessageCatalogue;
-use Nip\I18n\Catalogue\MessageCatalogueInterface;
+use Nip\I18n\Message\Catalogue\MessageCatalogue;
+use Nip\I18n\Message\Catalogue\MessageCatalogueInterface;
 use Nip\I18n\Exception\NotFoundResourceException;
 use Nip\I18n\Locale\LocaleValidator;
 
