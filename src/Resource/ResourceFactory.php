@@ -13,11 +13,11 @@ class ResourceFactory
      * @param string $format The name of the loader (@see addLoader())
      * @param string $domain The domain
      *
-     * @return mixed|Resource
+     * @return Resource
      */
     public static function create($resource, $format, $domain = null)
     {
-        if (null === $domain) {
+        if (empty($domain)) {
             $domain = MessageCatalogueInterface::DEFAULT_DOMAIN;
         }
         $resource = new Resource($resource, $format, $domain);

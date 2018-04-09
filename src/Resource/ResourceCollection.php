@@ -7,6 +7,10 @@ use Nip\I18n\Message\Catalogue\MessageCatalogueInterface;
 use Nip\I18n\Exception\RuntimeException;
 use Nip\I18n\Translator;
 
+/**
+ * Class ResourceCollection
+ * @package Nip\I18n\Resource
+ */
 class ResourceCollection extends Collection
 {
     protected $locale;

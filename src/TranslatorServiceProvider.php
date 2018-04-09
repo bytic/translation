@@ -21,6 +21,7 @@ class TranslatorServiceProvider extends AbstractSignatureServiceProvider
     {
         $this->registerLanguages();
         $this->registerTranslator();
+        $this->registerLanguageDefault();
         $this->registerResources();
     }
 
@@ -141,5 +142,23 @@ class TranslatorServiceProvider extends AbstractSignatureServiceProvider
     {
         /** @noinspection PhpUndefinedFunctionInspection */
         return app('path.lang');
+    }
+
+    protected function registerLanguageDefault()
+    {
+        $langDefault = $this->getLanguageDefault();
+
+        /** @var Translator $translator */
+        $translator = $this->getContainer()->get('translator');
+        $translator->setLocale($langDefault);
+    }
+
+    /**
+     * @return string
+     */
+    protected function getLanguageDefault()
+    {
+        /** @noinspection PhpUndefinedFunctionInspection */
+        return function_exists('config') ? config('app.locale.default') : 'en';
     }
 }

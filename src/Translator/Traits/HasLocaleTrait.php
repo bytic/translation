@@ -41,7 +41,7 @@ trait HasLocaleTrait
      */
     public function checkValidLocale($locale = null)
     {
-        if (null === $locale) {
+        if (empty($locale)) {
             $locale = $this->getLocale();
         }
         LocaleValidator::assertValidLocale($locale);

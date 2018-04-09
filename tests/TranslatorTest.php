@@ -32,11 +32,13 @@ class TranslatorTest extends AbstractTest
      */
     public function testTrans($expected, $id, $translation, $parameters, $locale, $domain)
     {
-        $translator = new Translator('en');
+        $translator = new Translator($locale);
         $translator->addLoader('array', new ArrayLoader());
         $translator->addResource('array', array((string)$id => $translation), $locale, $domain);
 
         $this->assertEquals($expected, $translator->trans($id, $parameters, $domain, $locale));
+        $this->assertEquals($expected, $translator->trans($id, $parameters, $domain, ''));
+        $this->assertEquals($expected, $translator->trans($id, $parameters, $domain, false));
     }
 
     /**

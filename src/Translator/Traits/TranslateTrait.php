@@ -13,7 +13,7 @@ trait TranslateTrait
      */
     public function trans($id, array $parameters = [], $domain = null, $locale = null)
     {
-        if (null === $domain) {
+        if (empty($domain)) {
             $domain = MessageCatalogueInterface::DEFAULT_DOMAIN;
         }
         $message = $this->getCatalogue($locale)->get((string)$id, $domain);
@@ -72,7 +72,7 @@ trait TranslateTrait
      * @return string
      * @deprecated Use new trans() method
      */
-    public function translate($slug = false, $params = [], $language = false)
+    public function translate($slug = false, $params = [], $language = null)
     {
         return $this->trans($slug, $params, null, $language);
     }
@@ -85,7 +85,7 @@ trait TranslateTrait
      * @return boolean
      * @deprecated Use new hasTrans() method
      */
-    public function hasTranslation($slug = false, $language = false)
+    public function hasTranslation($slug = false, $language = null)
     {
         return $this->hasTrans($slug, null, $language);
     }
