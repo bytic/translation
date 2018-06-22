@@ -2,6 +2,10 @@
 
 namespace Nip\I18n\Message\Catalogue\Traits;
 
+/**
+ * Trait HasLocaleTrait
+ * @package Nip\I18n\Message\Catalogue\Traits
+ */
 trait HasLocaleTrait
 {
 

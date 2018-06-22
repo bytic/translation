@@ -6,51 +6,67 @@ use Nip\I18n\Message\Catalogue\MessageCatalogue;
 use Nip\I18n\Loader\ArrayLoader;
 use Nip\I18n\Translator;
 
+/**
+ * Class TranslatorTest
+ * @package Nip\I18n\Tests
+ */
 class TranslatorTest extends AbstractTest
 {
 
     public function testSetGetLocale()
     {
         $translator = new Translator('en');
-        $this->assertEquals('en', $translator->getLocale());
+        static::assertEquals('en', $translator->getLocale());
 
         $translator->setLocale('fr');
-        $this->assertEquals('fr', $translator->getLocale());
+        static::assertEquals('fr', $translator->getLocale());
     }
 
     public function testGetCatalogue()
     {
         $translator = new Translator('en');
-        $this->assertEquals(new MessageCatalogue('en'), $translator->getCatalogue());
+        static::assertEquals(new MessageCatalogue('en'), $translator->getCatalogue());
 
         $translator->setLocale('fr');
-        $this->assertEquals(new MessageCatalogue('fr'), $translator->getCatalogue('fr'));
+        static::assertEquals(new MessageCatalogue('fr'), $translator->getCatalogue('fr'));
     }
 
     /**
+     * @param $expected
+     * @param $id
+     * @param $translation
+     * @param $parameters
+     * @param $locale
+     * @param $domain
      * @dataProvider getTransDataProvider
      */
     public function testTrans($expected, $id, $translation, $parameters, $locale, $domain)
     {
         $translator = new Translator($locale);
         $translator->addLoader('array', new ArrayLoader());
-        $translator->addResource('array', array((string)$id => $translation), $locale, $domain);
+        $translator->addResource('array', [(string)$id => $translation], $locale, $domain);
 
-        $this->assertEquals($expected, $translator->trans($id, $parameters, $domain, $locale));
-        $this->assertEquals($expected, $translator->trans($id, $parameters, $domain, ''));
-        $this->assertEquals($expected, $translator->trans($id, $parameters, $domain, false));
+        static::assertEquals($expected, $translator->trans($id, $parameters, $domain, $locale));
+        static::assertEquals($expected, $translator->trans($id, $parameters, $domain, ''));
+        static::assertEquals($expected, $translator->trans($id, $parameters, $domain, false));
     }
 
     /**
+     * @param $expected
+     * @param $id
+     * @param $translation
+     * @param $parameters
+     * @param $locale
+     * @param $domain
      * @dataProvider getTransDataProvider
      */
     public function testTranslate($expected, $id, $translation, $parameters, $locale, $domain)
     {
         $translator = new Translator('en');
         $translator->addLoader('array', new ArrayLoader());
-        $translator->addResource('array', array((string)$id => $translation), $locale, $domain);
+        $translator->addResource('array', [(string)$id => $translation], $locale, $domain);
 
-        $this->assertEquals($expected, $translator->translate($id, $parameters, $locale));
+        static::assertEquals($expected, $translator->translate($id, $parameters, $locale));
     }
 
 
@@ -62,13 +78,16 @@ class TranslatorTest extends AbstractTest
         $translator->setFallbackLocales(['en']);
 
         $translator->addResource('array', ['foo' => 'foofoo'], 'en');
-        $this->assertEquals('foofoo', $translator->trans('foo'));
+        static::assertEquals('foofoo', $translator->trans('foo'));
 
-        $translator->addResource('array', array('bar' => 'foobar'), 'en');
-        $this->assertEquals('foobar', $translator->trans('bar'));
-        $this->assertEquals('foofoo', $translator->trans('foo'));
+        $translator->addResource('array', ['bar' => 'foobar'], 'en');
+        static::assertEquals('foobar', $translator->trans('bar'));
+        static::assertEquals('foofoo', $translator->trans('foo'));
     }
 
+    /**
+     * @return array
+     */
     public function getTransDataProvider()
     {
         return [

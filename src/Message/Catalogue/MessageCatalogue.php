@@ -9,6 +9,10 @@ use Nip\I18n\Message\Catalogue\Traits\HasMessagesTrait;
 use Nip\I18n\Message\Catalogue\Traits\HasMetadataTrait;
 use Nip\I18n\Message\Catalogue\Traits\HasResourcesTrait;
 
+/**
+ * Class MessageCatalogue
+ * @package Nip\I18n\Message\Catalogue
+ */
 class MessageCatalogue implements MessageCatalogueInterface, MetadataAwareInterface
 {
     use HasLocaleTrait, HasMessagesTrait, HasCatalogueOperationsTrait, HasFallbackCatalogueTrait, HasMetadataTrait, HasResourcesTrait;

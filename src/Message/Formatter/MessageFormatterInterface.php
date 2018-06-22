@@ -2,6 +2,10 @@
 
 namespace Nip\I18n\Message\Formatter;
 
+/**
+ * Interface MessageFormatterInterface
+ * @package Nip\I18n\Message\Formatter
+ */
 interface MessageFormatterInterface
 {
     /**
@@ -13,5 +17,5 @@ interface MessageFormatterInterface
      *
      * @return string
      */
-    public function format($message, $locale, array $parameters = array());
+    public function format($message, $locale, array $parameters = []);
 }

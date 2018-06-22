@@ -1,14 +1,11 @@
 <?php
 
-namespace Nip\I18n\Tests\Form;
+namespace Nip\I18n\Tests;
 
 use Nip\Container\Container;
 use Nip\Container\ContainerInterface;
 use Nip\I18n\Translator;
-use Nip\I18n\Translator\Backend\AbstractBackend;
-use Nip\I18n\Translator\Backend\File;
 use Nip\I18n\TranslatorServiceProvider;
-use Nip\I18n\Tests\AbstractTest;
 
 /**
  * Class TranslatorServiceProviderTest
@@ -37,6 +34,9 @@ class TranslatorServiceProviderTest extends AbstractTest
         self::assertSame('Zi', $translator->trans('day', [], null, 'ro'));
     }
 
+    /**
+     * @return Container
+     */
     protected function getContainer()
     {
         $container = Container::getInstance();

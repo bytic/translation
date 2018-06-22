@@ -6,6 +6,10 @@ use Nip\I18n\Exception\LogicException;
 use Nip\I18n\Message\Catalogue\MessageCatalogueInterface;
 use Nip\I18n\Message\Formatter\ChoiceMessageFormatterInterface;
 
+/**
+ * Trait TranslateTrait
+ * @package Nip\I18n\Translator\Traits
+ */
 trait TranslateTrait
 {
     /**
@@ -38,7 +42,7 @@ trait TranslateTrait
     /**
      * {@inheritdoc}
      */
-    public function transChoice($id, $number, array $parameters = array(), $domain = null, $locale = null)
+    public function transChoice($id, $number, array $parameters = [], $domain = null, $locale = null)
     {
         if (!$this->formatter instanceof ChoiceMessageFormatterInterface) {
             throw new LogicException(
@@ -89,5 +93,4 @@ trait TranslateTrait
     {
         return $this->hasTrans($slug, null, $language);
     }
-
 }

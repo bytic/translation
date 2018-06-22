@@ -1,6 +1,6 @@
 <?php
 
-namespace Nip\I18n\Tests\Translator\Backend;
+namespace Nip\I18n\Tests\Translator\Loader;
 
 use Nip\I18n\Message\Catalogue\MessageCatalogueInterface;
 use Nip\I18n\Loader\PhpFileLoader;

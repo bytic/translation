@@ -4,6 +4,10 @@ namespace Nip\I18n\Message\Catalogue\Traits;
 
 use Nip\I18n\Message\Catalogue\MessageCatalogueInterface;
 
+/**
+ * Trait HasMessagesTrait
+ * @package Nip\I18n\Message\Catalogue\Traits
+ */
 trait HasMessagesTrait
 {
     protected $messages = [];

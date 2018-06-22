@@ -5,6 +5,10 @@ namespace Nip\I18n\Translator\Traits;
 use Nip\I18n\Message\Formatter\MessageFormatter;
 use Nip\I18n\Message\Formatter\MessageFormatterInterface;
 
+/**
+ * Trait HasFormatterTrait
+ * @package Nip\I18n\Translator\Traits
+ */
 trait HasFormatterTrait
 {
     /**

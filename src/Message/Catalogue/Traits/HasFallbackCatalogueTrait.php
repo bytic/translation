@@ -2,9 +2,14 @@
 
 namespace Nip\I18n\Message\Catalogue\Traits;
 
+use Nip\I18n\Message\Catalogue\MessageCatalogue;
 use Nip\I18n\Message\Catalogue\MessageCatalogueInterface;
 use Nip\I18n\Exception\LogicException;
 
+/**
+ * Trait HasFallbackCatalogueTrait
+ * @package Nip\I18n\Message\Catalogue\Traits
+ */
 trait HasFallbackCatalogueTrait
 {
 

@@ -5,6 +5,10 @@ namespace Nip\I18n\Translator\Traits;
 use Nip\I18n\Exception\InvalidArgumentException;
 use Nip\I18n\Locale\LocaleValidator;
 
+/**
+ * Trait HasLocaleTrait
+ * @package Nip\I18n\Translator\Traits
+ */
 trait HasLocaleTrait
 {
 
@@ -90,7 +94,7 @@ trait HasLocaleTrait
      */
     protected function computeFallbackLocales($locale)
     {
-        $locales = array();
+        $locales = [];
         foreach ($this->fallbackLocales as $fallback) {
             if ($fallback === $locale) {
                 continue;

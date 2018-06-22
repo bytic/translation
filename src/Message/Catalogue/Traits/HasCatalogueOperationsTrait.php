@@ -6,6 +6,10 @@ use Nip\I18n\Message\Catalogue\MessageCatalogueInterface;
 use Nip\I18n\Message\Catalogue\MetadataAwareInterface;
 use Nip\I18n\Exception\LogicException;
 
+/**
+ * Trait HasCatalogueOperationsTrait
+ * @package Nip\I18n\Message\Catalogue\Traits
+ */
 trait HasCatalogueOperationsTrait
 {
     /**

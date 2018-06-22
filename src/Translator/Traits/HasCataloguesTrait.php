@@ -40,6 +40,9 @@ trait HasCataloguesTrait
         return isset($this->catalogues[$locale]);
     }
 
+    /**
+     * @param $locale
+     */
     public function removeCatalogue($locale)
     {
         unset($this->catalogues[$locale]);
@@ -91,11 +94,17 @@ trait HasCataloguesTrait
         $this->loadFallbackCatalogues($locale);
     }
 
+    /**
+     * @param string $locale
+     */
     protected function initializeCacheCatalogue(string $locale): void
     {
 
     }
 
+    /**
+     * @param $locale
+     */
     protected function doLoadCatalogue($locale): void
     {
         $catalogue = new MessageCatalogue($locale);
@@ -106,11 +115,18 @@ trait HasCataloguesTrait
         $this->setCatalogue($locale, $catalogue);
     }
 
+    /**
+     * @param $locale
+     * @param MessageCatalogueInterface $catalogue
+     */
     protected function setCatalogue($locale, MessageCatalogueInterface $catalogue)
     {
         $this->catalogues[$locale] = $catalogue;
     }
 
+    /**
+     * @param $locale
+     */
     protected function loadFallbackCatalogues($locale): void
     {
         $current = $this->catalogues[$locale];
