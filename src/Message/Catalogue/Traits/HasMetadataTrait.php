@@ -4,7 +4,6 @@ namespace Nip\I18n\Message\Catalogue\Traits;
 
 trait HasMetadataTrait
 {
-
     protected $metadata = [];
 
     /**

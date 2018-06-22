@@ -6,7 +6,6 @@ use Nip\I18n\Resource\ResourceInterface;
 
 trait HasResourcesTrait
 {
-
     protected $resources = [];
 
     /**
@@ -24,5 +23,4 @@ trait HasResourcesTrait
     {
         $this->resources[$resource->__toString()] = $resource;
     }
-
 }

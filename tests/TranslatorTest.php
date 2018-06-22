@@ -12,7 +12,6 @@ use Nip\I18n\Translator;
  */
 class TranslatorTest extends AbstractTest
 {
-
     public function testSetGetLocale()
     {
         $translator = new Translator('en');

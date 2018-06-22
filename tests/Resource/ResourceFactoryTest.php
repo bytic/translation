@@ -15,7 +15,7 @@ class ResourceFactoryTest extends AbstractTest
      */
     public function testCreateWithEmptyValues($domain)
     {
-        $resource = ResourceFactory::create('trans.php','php',$domain);
+        $resource = ResourceFactory::create('trans.php', 'php', $domain);
 
         self::assertEquals(MessageCatalogueInterface::DEFAULT_DOMAIN, $resource->getDomain());
     }

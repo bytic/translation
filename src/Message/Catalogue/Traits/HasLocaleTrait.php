@@ -8,7 +8,6 @@ namespace Nip\I18n\Message\Catalogue\Traits;
  */
 trait HasLocaleTrait
 {
-
     protected $locale;
 
     /**
@@ -26,5 +25,4 @@ trait HasLocaleTrait
     {
         $this->locale = $locale;
     }
-
 }

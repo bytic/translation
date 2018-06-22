@@ -37,5 +37,4 @@ interface MetadataAwareInterface
      * @param string $domain The domain name
      */
     public function deleteMetadata($key = '', $domain = 'messages');
-
 }

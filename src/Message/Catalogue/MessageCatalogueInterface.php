@@ -6,7 +6,6 @@ use Nip\I18n\Resource\ResourceInterface;
 
 interface MessageCatalogueInterface
 {
-
     const DEFAULT_DOMAIN = 'messages';
 
     /**

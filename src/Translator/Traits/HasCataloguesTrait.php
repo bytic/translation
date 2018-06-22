@@ -74,7 +74,6 @@ trait HasCataloguesTrait
             return;
         }
         $this->initializeCatalogue($locale);
-
     }
 
     /**
@@ -99,7 +98,6 @@ trait HasCataloguesTrait
      */
     protected function initializeCacheCatalogue(string $locale): void
     {
-
     }
 
     /**

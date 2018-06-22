@@ -107,5 +107,4 @@ trait HasLocaleTrait
         }
         return array_unique($locales);
     }
-
 }
