@@ -4,6 +4,10 @@ namespace Nip\I18n\Locale;
 
 use Nip\I18n\Exception\InvalidArgumentException;
 
+/**
+ * Class LocaleValidator
+ * @package Nip\I18n\Locale
+ */
 class LocaleValidator
 {
 

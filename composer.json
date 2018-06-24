@@ -23,7 +23,9 @@
     "bytic/container": "^1.0",
     "bytic/collections": "^1.0",
     "bytic/filesystem": "^1.0",
-    "symfony/finder": "^4.0"
+    "bytic/locale-detector": "^1.0",
+    "symfony/finder": "^4.0",
+    "psr/http-server-middleware": "^1.0"
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "^3.0",
