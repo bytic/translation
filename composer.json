@@ -28,6 +28,7 @@
     "psr/http-server-middleware": "^1.0"
   },
   "require-dev": {
+    "bytic/collections": "^1.0",
     "squizlabs/php_codesniffer": "^3.0",
     "phpunit/phpunit": "^6.2",
     "mockery/mockery": "^0.9"
