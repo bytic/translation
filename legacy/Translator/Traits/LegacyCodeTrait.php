@@ -25,15 +25,19 @@ trait LegacyCodeTrait
 
     /**
      * @return array
-     * @deprecated Use getAvailableResourceLocales instead
+     * @deprecated Use app('translation.languages') instead
      */
     public function getLanguages()
     {
-        return $this->getAvailableResourceLocales();
+        return app('translation.languages');
     }
 
     /**
-     * @deprecated use getLocale()
+     * Checks SESSION, GET and Nip_Request and selects requested language
+     * If language not requested, falls back to default
+     *
+     * @return string
+     * @deprecated Use getLocale instead
      */
     public function getLanguage()
     {
