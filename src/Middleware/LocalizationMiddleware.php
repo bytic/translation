@@ -2,6 +2,7 @@
 
 namespace Nip\I18n\Middleware;
 
+use Nip\I18n\Translator;
 use Nip\Locale\Detector\Detector;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -16,15 +17,15 @@ use Psr\Http\Server\RequestHandlerInterface;
  */
 class LocalizationMiddleware implements MiddlewareInterface
 {
-    protected $enabledLocale;
+    protected $translator;
 
     /**
      * LocalizationMiddleware constructor.
-     * @param null $enabledLocale
+     * @param null $translator
      */
-    public function __construct($enabledLocale = null)
+    public function __construct($translator = null)
     {
-        $this->enabledLocale = $enabledLocale;
+        $this->setTranslator($translator);
     }
 
     /**
@@ -34,11 +35,38 @@ class LocalizationMiddleware implements MiddlewareInterface
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        $detected = Detector::detect($request, $this->enabledLocale);
+        $detected = Detector::detect($request, $this->translator);
         if ($detected) {
             /** @noinspection PhpUndefinedMethodInspection */
             $request->setLocale($detected);
+            if ($this->hasTranslator()) {
+                $this->getTranslator()->setLocale($detected);
+            }
         }
         return $handler->handle($request);
+    }
+
+    /**
+     * @return Translator
+     */
+    public function getTranslator()
+    {
+        return $this->translator;
+    }
+
+    /**
+     * @param Translator $translator
+     */
+    public function setTranslator($translator): void
+    {
+        $this->translator = $translator;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasTranslator()
+    {
+        return $this->getTranslator() instanceof Translator;
     }
 }

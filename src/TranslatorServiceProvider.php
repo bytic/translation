@@ -4,6 +4,7 @@ namespace Nip\I18n;
 
 use Nip\Container\ServiceProviders\Providers\AbstractSignatureServiceProvider;
 use Nip\I18n\Loader\PhpFileLoader;
+use Nip\I18n\Middleware\LocalizationMiddleware;
 
 /**
  * Class MailServiceProvider
@@ -23,7 +24,17 @@ class TranslatorServiceProvider extends AbstractSignatureServiceProvider
         $this->registerTranslator();
         $this->registerLanguageDefault();
         $this->registerResources();
+        $this->registerMiddleware();
     }
+
+    /**
+     * @inheritdoc
+     */
+    public function provides()
+    {
+        return ['translator', 'translation.languages', 'translation.loader'];
+    }
+
 
     /**
      * Register the session manager instance.
@@ -62,14 +73,6 @@ class TranslatorServiceProvider extends AbstractSignatureServiceProvider
         $this->getContainer()->share('translation.languages', function () {
             return $this->getLanguages();
         });
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function provides()
-    {
-        return ['translator', 'translation.languages', 'translation.loader'];
     }
 
     /**
@@ -160,5 +163,13 @@ class TranslatorServiceProvider extends AbstractSignatureServiceProvider
     {
         /** @noinspection PhpUndefinedFunctionInspection */
         return function_exists('config') ? config('app.locale.default') : 'en';
+    }
+
+    protected function registerMiddleware()
+    {
+        $kernel = $this->getContainer()->get('kernel');
+        $kernel->pushMiddleware(
+            new LocalizationMiddleware($this->getContainer()->get('translator'))
+        );
     }
 }
