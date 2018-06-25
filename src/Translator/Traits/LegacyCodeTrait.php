@@ -21,11 +21,11 @@ trait LegacyCodeTrait
 
     /**
      * @return array
-     * @deprecated Use getLocale instead
+     * @deprecated Use app('translation.languages') instead
      */
     public function getLanguages()
     {
-        return $this->getLocale();
+        return app('translation.languages');
     }
 
     /**
@@ -33,6 +33,7 @@ trait LegacyCodeTrait
      * If language not requested, falls back to default
      *
      * @return string
+     * @deprecated Use getLocale instead
      */
     public function getLanguage()
     {

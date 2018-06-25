@@ -61,6 +61,7 @@ class TranslatorServiceProvider extends AbstractSignatureServiceProvider
         $basDirectory = $this->getLanguageDirectory();
         $languages = $this->getContainer()->get('translation.languages');
 
+        /** @var Translator $translator */
         $translator = $this->getContainer()->get('translator');
 
         foreach ($languages as $language) {
