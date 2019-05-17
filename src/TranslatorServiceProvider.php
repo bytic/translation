@@ -2,7 +2,7 @@
 
 namespace Nip\I18n;
 
-use Nip\Container\ServiceProviders\Providers\AbstractSignatureServiceProvider;
+use Nip\Container\ServiceProvider\AbstractSignatureServiceProvider;
 use Nip\I18n\Loader\PhpFileLoader;
 use Nip\I18n\Middleware\LocalizationMiddleware;
 
@@ -44,7 +44,7 @@ class TranslatorServiceProvider extends AbstractSignatureServiceProvider
     protected function registerTranslator()
     {
         $this->getContainer()
-            ->share('translator', function () {
+            ->singleton('translator', function () {
                 $translator = new Translator('en');
                 $translator->addLoader('php', new PhpFileLoader());
                 return $translator;
@@ -70,7 +70,7 @@ class TranslatorServiceProvider extends AbstractSignatureServiceProvider
 
     protected function registerLanguages()
     {
-        $this->getContainer()->share('translation.languages', function () {
+        $this->getContainer()->singleton('translation.languages', function () {
             return $this->getLanguages();
         });
     }
@@ -162,14 +162,16 @@ class TranslatorServiceProvider extends AbstractSignatureServiceProvider
     protected function getLanguageDefault()
     {
         /** @noinspection PhpUndefinedFunctionInspection */
-        return function_exists('config') ? config('app.locale.default') : 'en';
+        return function_exists('config') && function_exists('app') && \app()->has('config') ? config('app.locale.default') : 'en';
     }
 
     protected function registerMiddleware()
     {
-        $kernel = $this->getContainer()->get('kernel');
-        $kernel->pushMiddleware(
-            new LocalizationMiddleware($this->getContainer()->get('translator'))
-        );
+        $kernel = $kernel = $this->getContainer()->has('kernel') ? $this->getContainer()->get('kernel') : null;
+        if ($kernel) {
+            $kernel->pushMiddleware(
+                new LocalizationMiddleware($this->getContainer()->get('translator'))
+            );
+        }
     }
 }

@@ -18,8 +18,8 @@ class TranslatorServiceProviderTest extends AbstractTest
         $provider = new TranslatorServiceProvider();
         $provider->setLanguages(['ro', 'en']);
         $provider->setLanguageDirectory(TEST_FIXTURE_PATH . DIRECTORY_SEPARATOR . 'languages');
-        $container = Container::getInstance();
-//        $container->addServiceProvider($provider);
+
+        $container = new Container();
         $provider->setContainer($container);
         $provider->register();
 
