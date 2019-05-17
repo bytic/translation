@@ -119,14 +119,13 @@ trait LegacyCodeTrait
     }
 
     /**
-     * Sets the default language to be used when translating
-     *
      * @param string $language
      * @return $this
+     * @deprecated Use setLocale
      */
     public function setDefaultLanguage($language)
     {
-        $this->defaultLanguage = $language;
+        $this->setLocale($language);
 
         return $this;
     }
