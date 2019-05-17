@@ -10,7 +10,10 @@
   "autoload": {
     "psr-4": {
       "Nip\\I18n\\": "src/"
-    }
+    },
+    "classmap": [
+      "legacy"
+    ]
   },
   "autoload-dev": {
     "psr-4": {

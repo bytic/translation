@@ -34,9 +34,11 @@ class Translator
      * Translator constructor.
      * @param string|null $locale
      */
-    public function __construct(?string $locale)
+    public function __construct(?string $locale = null)
     {
-        $this->setLocale($locale);
+        if ($locale) {
+            $this->setLocale($locale);
+        }
     }
 
 

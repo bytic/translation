@@ -2,6 +2,8 @@
 
 namespace Nip\I18n\Translator\Traits;
 
+use Nip\I18n\Translator\Backend\BackendTrait;
+
 /**
  * Trait LegacyCodeTrait
  * @package Nip\I18n\Translator\Traits
@@ -127,5 +129,14 @@ trait LegacyCodeTrait
         $this->defaultLanguage = $language;
 
         return $this;
+    }
+
+    /**
+     * @param BackendTrait $backend
+     * @deprecated
+     */
+    public function setBackend($backend)
+    {
+        $backend->setTranslator($this);
     }
 }
