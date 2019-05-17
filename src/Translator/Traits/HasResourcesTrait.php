@@ -99,6 +99,17 @@ trait HasResourcesTrait
         $this->resources[$locale] = $collection;
     }
 
+    /**
+     * @return array
+     */
+    public function getAvailableResourceLocales()
+    {
+        return array_keys( $this->resources);
+    }
+
+    /**
+     * @param $locale
+     */
     protected function checkInitResourceCollection($locale)
     {
         if (!$this->hasResourceCollection($locale)) {

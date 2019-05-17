@@ -23,11 +23,11 @@ trait LegacyCodeTrait
 
     /**
      * @return array
-     * @deprecated Use getLocale instead
+     * @deprecated Use getAvailableResourceLocales instead
      */
     public function getLanguages()
     {
-        return $this->getLocale();
+        return $this->getAvailableResourceLocales();
     }
 
     /**
