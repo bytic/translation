@@ -11,7 +11,7 @@ use Nip\I18n\Translator\Traits\HasRequestTrait;
 use Nip\I18n\Translator\Traits\HasResourcesTrait;
 use Nip\I18n\Translator\Traits\LegacyCodeTrait;
 use Nip\I18n\Translator\Traits\TranslateTrait;
-use Nip\Locale\Detector\Detector;
+use Nip\Locale\Detector\Pipeline\Stages\QueryStage;
 use function Nip\url;
 
 /**
@@ -49,8 +49,8 @@ class Translator
      */
     public function changeLangURL($lang)
     {
-        $newURL = str_replace('language=' . $this->getLocale(), '', url()->current());
-        $newURL = $newURL . (strpos($newURL, '?') == false ? '?' : '&') . 'language=' . $lang;
+        $newURL = str_replace(QueryStage::QUERY_KEY . '=' . $this->getLocale(), '', url()->current());
+        $newURL = $newURL . (strpos($newURL, '?') == false ? '?' : '&') . QueryStage::QUERY_KEY . '=' . $lang;
 
         return $newURL;
     }
