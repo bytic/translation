@@ -39,7 +39,12 @@ trait HasLocaleTrait
     public function setPersistedLocale($locale)
     {
         $this->setLocale($locale);
-        LocalePersist::persist($locale);
+        $this->persistLocale();
+    }
+
+    public function persistLocale()
+    {
+        LocalePersist::persist($this->getLocale());
     }
 
     /**
@@ -48,6 +53,15 @@ trait HasLocaleTrait
     public function getLocale()
     {
         return $this->locale;
+    }
+
+    /**
+     * @param $locale
+     * @return bool
+     */
+    public function isSupportedLocale($locale)
+    {
+        return in_array($locale, $this->getAvailableResourceLocales());
     }
 
     /**

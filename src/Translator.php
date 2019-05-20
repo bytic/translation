@@ -11,6 +11,7 @@ use Nip\I18n\Translator\Traits\HasRequestTrait;
 use Nip\I18n\Translator\Traits\HasResourcesTrait;
 use Nip\I18n\Translator\Traits\LegacyCodeTrait;
 use Nip\I18n\Translator\Traits\TranslateTrait;
+use Nip\Locale\Detector\Detector;
 use function Nip\url;
 
 /**

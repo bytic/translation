@@ -33,22 +33,19 @@ trait LegacyCodeTrait
     }
 
     /**
-     * Checks SESSION, GET and Nip_Request and selects requested language
-     * If language not requested, falls back to default
-     *
-     * @return string
+     * @deprecated use getLocale()
      */
     public function getLanguage()
     {
         if (!$this->selectedLanguage) {
-            $locale = Detector::detect($this->getRequest());
+            $this->setLocaleFromRequest();
+            $locale = $this->getLocale();
+            $this->persistLocale();
 
-            $locale = !empty($locale) && $this->isValidLanguage($locale) ? $locale : $this->getDefaultLanguage();
-
-            $this->setPersistedLocale($locale);
+            $this->selectedLanguage = $locale;
         }
 
-        return $this->selectedLanguage;
+        return $this->getLocale();
     }
 
     /**
@@ -65,11 +62,12 @@ trait LegacyCodeTrait
 
     /**
      * @param $lang
-     * @return bool
+     * @return boolean
+     * @deprecated use isSupportedLocale
      */
     public function isValidLanguage($lang)
     {
-        return in_array($lang, $this->getAvailableResourceLocales());
+        return $this->isSupportedLocale($lang);
     }
 
     /**
