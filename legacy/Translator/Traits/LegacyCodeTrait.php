@@ -3,6 +3,7 @@
 namespace Nip\I18n\Translator\Traits;
 
 use Nip\I18n\Translator\Backend\BackendTrait;
+use Nip\Locale\Detector\Detector;
 
 /**
  * Trait LegacyCodeTrait
@@ -39,19 +40,10 @@ trait LegacyCodeTrait
     public function getLanguage()
     {
         if (!$this->selectedLanguage) {
-            $language = false;
+            $locale = Detector::detect($this->getRequest());
 
-            if (isset($_SESSION['language']) && $this->isValidLanguage($_SESSION['language'])) {
-                $language = $_SESSION['language'];
-            }
-
-            $requestLanguage = $this->getRequest()->get('language');
-            if ($requestLanguage && $this->isValidLanguage($requestLanguage)) {
-                $language = $requestLanguage;
-            }
-
-            if ($language) {
-                $this->setLanguage($language);
+            if ($locale) {
+                $this->setLanguage($locale);
             } else {
                 $this->setLanguage($this->getDefaultLanguage());
             }
@@ -126,6 +118,7 @@ trait LegacyCodeTrait
     public function setDefaultLanguage($language)
     {
         $this->setLocale($language);
+        $this->defaultLanguage = $language;
 
         return $this;
     }
