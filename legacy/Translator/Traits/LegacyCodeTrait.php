@@ -4,6 +4,7 @@ namespace Nip\I18n\Translator\Traits;
 
 use Nip\I18n\Translator\Backend\BackendTrait;
 use Nip\Locale\Detector\Detector;
+use Nip\Locale\Detector\LocalePersist;
 
 /**
  * Trait LegacyCodeTrait
@@ -42,31 +43,22 @@ trait LegacyCodeTrait
         if (!$this->selectedLanguage) {
             $locale = Detector::detect($this->getRequest());
 
-            if ($locale) {
-                $this->setLanguage($locale);
-            } else {
-                $this->setLanguage($this->getDefaultLanguage());
-            }
+            $locale = !empty($locale) && $this->isValidLanguage($locale) ? $locale : $this->getDefaultLanguage();
+
+            $this->setPersistedLocale($locale);
         }
 
         return $this->selectedLanguage;
     }
 
     /**
-     * Selects a language to be used when translating
-     *
      * @param string $language
      * @return $this
+     * @deprecated Use setPersistedLocale
      */
     public function setLanguage($language)
     {
-        $this->setLocale($language);
-
-        $code = $this->getLanguageCode($language);
-
-        putenv('LC_ALL=' . $code);
-        setlocale(LC_ALL, $code);
-        setlocale(LC_NUMERIC, 'en_US');
+        $this->setPersistedLocale($language);
 
         return $this;
     }
@@ -77,7 +69,7 @@ trait LegacyCodeTrait
      */
     public function isValidLanguage($lang)
     {
-        return in_array($lang, $this->getLanguages());
+        return in_array($lang, $this->getAvailableResourceLocales());
     }
 
     /**

@@ -4,6 +4,7 @@ namespace Nip\I18n\Translator\Traits;
 
 use Nip\I18n\Exception\InvalidArgumentException;
 use Nip\I18n\Locale\LocaleValidator;
+use Nip\Locale\Detector\LocalePersist;
 
 /**
  * Trait HasLocaleTrait
@@ -30,6 +31,15 @@ trait HasLocaleTrait
     {
         LocaleValidator::assertValidLocale($locale);
         $this->locale = $locale;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setPersistedLocale($locale)
+    {
+        $this->setLocale($locale);
+        LocalePersist::persist($locale);
     }
 
     /**
