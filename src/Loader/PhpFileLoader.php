@@ -57,6 +57,9 @@ class PhpFileLoader extends FileLoader
     protected function loadResourceFile($resource)
     {
         /** @var TYPE_NAME $resource */
-        return require $resource;
+        ob_start();
+        $messages = require $resource;
+        ob_end_clean();
+        return $messages;
     }
 }
