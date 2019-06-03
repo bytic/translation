@@ -35,6 +35,12 @@ class LocalizationMiddleware implements MiddlewareInterface
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
+        $this->detect($request);
+        return $handler->handle($request);
+    }
+
+    public function detect(ServerRequestInterface $request)
+    {
         $detected = Detector::detect($request, $this->translator);
         if ($detected) {
             /** @noinspection PhpUndefinedMethodInspection */
@@ -43,7 +49,6 @@ class LocalizationMiddleware implements MiddlewareInterface
                 $this->getTranslator()->setLocale($detected);
             }
         }
-        return $handler->handle($request);
     }
 
     /**
