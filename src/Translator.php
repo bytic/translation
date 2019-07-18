@@ -49,8 +49,11 @@ class Translator
      */
     public function changeLangURL($lang)
     {
-        $newURL = str_replace(QueryStage::QUERY_KEY . '=' . $this->getLocale(), '', url()->current());
-        $newURL = $newURL . (strpos($newURL, '?') == false ? '?' : '&') . QueryStage::QUERY_KEY . '=' . $lang;
+        $url = function_exists('current_url') ? current_url() : url()->current();
+        $queryKeys = QueryStage::QUERY_KEY;
+        $queryKey = reset($queryKeys);
+        $newURL = str_replace($queryKey . '=' . $this->getLocale(), '', $url);
+        $newURL = $newURL . (strpos($newURL, '?') == false ? '?' : '&') . $queryKey . '=' . $lang;
 
         return $newURL;
     }
