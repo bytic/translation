@@ -2,7 +2,6 @@
 
 namespace Nip\I18n\Translator\Backend;
 
-
 use Nip\I18n\Loader\PhpFileLoader;
 
 /**

@@ -11,7 +11,6 @@ use Nip\I18n\Translator;
  */
 class FileTest extends AbstractTest
 {
-
     public function testUseWithTranslator()
     {
         $translator = new Translator();
@@ -26,6 +25,4 @@ class FileTest extends AbstractTest
         self::assertSame('Zi', $translator->trans('day', [], null, 'ro'));
         self::assertSame('Day', $translator->trans('day', [], null, 'en'));
     }
-
 }
-
