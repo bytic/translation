@@ -68,7 +68,7 @@ class TranslatorServiceProvider extends AbstractSignatureServiceProvider
         }
     }
 
-    protected function registerLanguages()
+    public function registerLanguages()
     {
         $this->getContainer()->singleton('translation.languages', function () {
             return $this->getLanguages();
@@ -100,7 +100,19 @@ class TranslatorServiceProvider extends AbstractSignatureServiceProvider
         /** @noinspection PhpUndefinedFunctionInspection */
         $languages = config('app.locale.enabled');
 
-        return is_array($languages) ? $languages : explode(',', $languages);
+        if (empty($languages)) {
+            return [];
+        }
+
+        if (is_string($languages)) {
+            $languages = explode(',', $languages);
+        }
+
+        if (!is_array($languages)) {
+            return [];
+        }
+
+        return array_filter($languages);
     }
 
     /**
