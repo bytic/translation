@@ -104,7 +104,7 @@ trait HasResourcesTrait
      */
     public function getAvailableResourceLocales()
     {
-        return array_keys( $this->resources);
+        return array_keys($this->resources);
     }
 
     /**
