@@ -2,6 +2,10 @@
 
 namespace Nip\I18n\Translator\Traits;
 
+use Nip\I18n\Translator\Backend\BackendTrait;
+use Nip\Locale\Detector\Detector;
+use Nip\Locale\Detector\LocalePersist;
+
 /**
  * Trait LegacyCodeTrait
  * @package Nip\I18n\Translator\Traits
@@ -38,53 +42,36 @@ trait LegacyCodeTrait
     public function getLanguage()
     {
         if (!$this->selectedLanguage) {
-            $language = false;
+            $this->setLocaleFromRequest();
+            $locale = $this->getLocale();
+            $this->persistLocale();
 
-            if (isset($_SESSION['language']) && $this->isValidLanguage($_SESSION['language'])) {
-                $language = $_SESSION['language'];
-            }
-
-            $requestLanguage = $this->getRequest()->get('language');
-            if ($requestLanguage && $this->isValidLanguage($requestLanguage)) {
-                $language = $requestLanguage;
-            }
-
-            if ($language) {
-                $this->setLanguage($language);
-            } else {
-                $this->setLanguage($this->getDefaultLanguage());
-            }
+            $this->selectedLanguage = $locale;
         }
 
-        return $this->selectedLanguage;
+        return $this->getLocale();
     }
 
     /**
-     * Selects a language to be used when translating
-     *
      * @param string $language
      * @return $this
+     * @deprecated Use setPersistedLocale
      */
     public function setLanguage($language)
     {
-        $this->setLocale($language);
-
-        $code = $this->getLanguageCode($language);
-
-        putenv('LC_ALL=' . $code);
-        setlocale(LC_ALL, $code);
-        setlocale(LC_NUMERIC, 'en_US');
+        $this->setPersistedLocale($language);
 
         return $this;
     }
 
     /**
      * @param $lang
-     * @return bool
+     * @return boolean
+     * @deprecated use isSupportedLocale
      */
     public function isValidLanguage($lang)
     {
-        return in_array($lang, $this->getLanguages());
+        return $this->isSupportedLocale($lang);
     }
 
     /**
@@ -118,15 +105,24 @@ trait LegacyCodeTrait
     }
 
     /**
-     * Sets the default language to be used when translating
-     *
      * @param string $language
      * @return $this
+     * @deprecated Use setLocale
      */
     public function setDefaultLanguage($language)
     {
+        $this->setLocale($language);
         $this->defaultLanguage = $language;
 
         return $this;
+    }
+
+    /**
+     * @param BackendTrait $backend
+     * @deprecated
+     */
+    public function setBackend($backend)
+    {
+        $backend->setTranslator($this);
     }
 }

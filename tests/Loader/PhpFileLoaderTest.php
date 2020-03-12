@@ -1,11 +1,15 @@
 <?php
 
-namespace Nip\I18n\Tests\Translator\Loader;
+namespace Nip\I18n\Tests\Loader;
 
 use Nip\I18n\Message\Catalogue\MessageCatalogueInterface;
 use Nip\I18n\Loader\PhpFileLoader;
 use Nip\I18n\Tests\AbstractTest;
 
+/**
+ * Class PhpFileLoaderTest
+ * @package Nip\I18n\Tests\Loader
+ */
 class PhpFileLoaderTest extends AbstractTest
 {
     public function testAddLanguage()

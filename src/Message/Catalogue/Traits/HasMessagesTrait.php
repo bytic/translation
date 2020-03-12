@@ -28,6 +28,7 @@ trait HasMessagesTrait
      */
     public function set($id, $translation, $domain = MessageCatalogueInterface::DEFAULT_DOMAIN)
     {
+        $domain = $this->checkDomain($domain);
         $this->add([$id => $translation], $domain);
     }
 
@@ -36,6 +37,7 @@ trait HasMessagesTrait
      */
     public function has($id, $domain = MessageCatalogueInterface::DEFAULT_DOMAIN)
     {
+        $domain = $this->checkDomain($domain);
         if (isset($this->messages[$domain][$id])) {
             return true;
         }
@@ -50,6 +52,7 @@ trait HasMessagesTrait
      */
     public function defines($id, $domain = MessageCatalogueInterface::DEFAULT_DOMAIN)
     {
+        $domain = $this->checkDomain($domain);
         return isset($this->messages[$domain][$id]);
     }
 
@@ -58,6 +61,7 @@ trait HasMessagesTrait
      */
     public function get($id, $domain = MessageCatalogueInterface::DEFAULT_DOMAIN)
     {
+        $domain = $this->checkDomain($domain);
         if (isset($this->messages[$domain][$id])) {
             return $this->messages[$domain][$id];
         }
@@ -73,6 +77,7 @@ trait HasMessagesTrait
      */
     public function replace($messages, $domain = MessageCatalogueInterface::DEFAULT_DOMAIN)
     {
+        $domain = $this->checkDomain($domain);
         $this->messages[$domain] = [];
         $this->add($messages, $domain);
     }
@@ -82,6 +87,7 @@ trait HasMessagesTrait
      */
     public function add($messages, $domain = MessageCatalogueInterface::DEFAULT_DOMAIN)
     {
+        $domain = $this->checkDomain($domain);
         if (!isset($this->messages[$domain])) {
             $this->messages[$domain] = $messages;
         } else {

@@ -4,6 +4,10 @@ namespace Nip\I18n\Loader;
 
 use Symfony\Component\Finder\Finder;
 
+/**
+ * Class PhpFileLoader
+ * @package Nip\I18n\Loader
+ */
 class PhpFileLoader extends FileLoader
 {
 
@@ -53,6 +57,9 @@ class PhpFileLoader extends FileLoader
     protected function loadResourceFile($resource)
     {
         /** @var TYPE_NAME $resource */
-        return require $resource;
+        ob_start();
+        $messages = require $resource;
+        ob_end_clean();
+        return $messages;
     }
 }

@@ -18,14 +18,16 @@ use Psr\Http\Server\RequestHandlerInterface;
 class LocalizationMiddleware implements MiddlewareInterface
 {
     protected $translator;
+    protected $config = [];
 
     /**
      * LocalizationMiddleware constructor.
      * @param null $translator
      */
-    public function __construct($translator = null)
+    public function __construct($translator = null, $config = [])
     {
         $this->setTranslator($translator);
+        $this->config = $config;
     }
 
     /**
@@ -35,15 +37,24 @@ class LocalizationMiddleware implements MiddlewareInterface
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
+        $this->detect($request);
+        return $handler->handle($request);
+    }
+
+    /**
+     * @param ServerRequestInterface $request
+     */
+    public function detect(ServerRequestInterface $request)
+    {
+        Detector::setConfigFromArray($this->config);
         $detected = Detector::detect($request, $this->translator);
         if ($detected) {
             /** @noinspection PhpUndefinedMethodInspection */
             $request->setLocale($detected);
             if ($this->hasTranslator()) {
-                $this->getTranslator()->setLocale($detected);
+                $this->getTranslator()->setPersistedLocale($detected);
             }
         }
-        return $handler->handle($request);
     }
 
     /**

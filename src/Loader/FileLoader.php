@@ -9,6 +9,10 @@ namespace Nip\I18n\Loader;
 use Nip\I18n\Exception\InvalidResourceException;
 use Nip\I18n\Exception\NotFoundResourceException;
 
+/**
+ * Class FileLoader
+ * @package Nip\I18n\Loader
+ */
 abstract class FileLoader extends ArrayLoader
 {
 
@@ -28,7 +32,7 @@ abstract class FileLoader extends ArrayLoader
 
         // empty resource
         if (null === $messages) {
-            $messages = array();
+            $messages = [];
         }
 
         // not an array

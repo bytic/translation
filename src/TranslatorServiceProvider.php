@@ -69,7 +69,7 @@ class TranslatorServiceProvider extends AbstractSignatureServiceProvider
         }
     }
 
-    protected function registerLanguages()
+    public function registerLanguages()
     {
         $this->getContainer()->share('translation.languages', function () {
             return $this->getLanguages();
@@ -101,7 +101,19 @@ class TranslatorServiceProvider extends AbstractSignatureServiceProvider
         /** @noinspection PhpUndefinedFunctionInspection */
         $languages = config('app.locale.enabled');
 
-        return is_array($languages) ? $languages : explode(',', $languages);
+        if (empty($languages)) {
+            return [];
+        }
+
+        if (is_string($languages)) {
+            $languages = explode(',', $languages);
+        }
+
+        if (!is_array($languages)) {
+            return [];
+        }
+
+        return array_filter($languages);
     }
 
     /**
@@ -163,16 +175,18 @@ class TranslatorServiceProvider extends AbstractSignatureServiceProvider
     protected function getLanguageDefault()
     {
         /** @noinspection PhpUndefinedFunctionInspection */
-        return function_exists('config') ? config('app.locale.default') : 'en';
+        return function_exists('config') && function_exists('app') && \app()->has('config') ? config('app.locale.default') : 'en';
     }
 
     protected function registerMiddleware()
     {
         if ($this->getContainer()->has('kernel.http')) {
-            $kernel = $this->getContainer()->get('kernel.http');
-            $kernel->pushMiddleware(
-                new LocalizationMiddleware($this->getContainer()->get('translator'))
-            );
+            $kernel = $kernel = $this->getContainer()->has('kernel') ? $this->getContainer()->get('kernel.http') : null;
+            if ($kernel && method_exists($kernel, 'pushMiddleware')) {
+                $kernel->pushMiddleware(
+                    new LocalizationMiddleware($this->getContainer()->get('translator'))
+                );
+            }
         }
     }
 }
