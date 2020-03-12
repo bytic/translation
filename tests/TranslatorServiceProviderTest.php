@@ -46,7 +46,8 @@ class TranslatorServiceProviderTest extends AbstractTest
 
         $config = new Config(['app' => ['locale' => ['enabled' => $config]]]);
 
-        $container = $provider->getContainer();;
+        $container = $provider->getContainer();
+        ;
         $container->set('config', $config);
 
         $provider->registerLanguages();
