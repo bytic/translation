@@ -166,7 +166,7 @@ class TranslatorServiceProvider extends AbstractSignatureServiceProvider
 
         /** @var Translator $translator */
         $translator = $this->getContainer()->get('translator');
-        $translator->setLocale($langDefault);
+        $translator->setPersistedLocale($langDefault);
     }
 
     /**
@@ -181,11 +181,12 @@ class TranslatorServiceProvider extends AbstractSignatureServiceProvider
     protected function registerMiddleware()
     {
         if ($this->getContainer()->has('kernel.http')) {
-            $kernel = $kernel = $this->getContainer()->has('kernel') ? $this->getContainer()->get('kernel.http') : null;
+            $kernel = $this->getContainer()->get('kernel.http');
             if ($kernel && method_exists($kernel, 'pushMiddleware')) {
-                $kernel->pushMiddleware(
-                    new LocalizationMiddleware($this->getContainer()->get('translator'))
-                );
+                // REMOVE Middleware. Now it overwrites config variable
+//            $kernel->prependMiddleware(
+    //                new LocalizationMiddleware($this->getContainer()->get('translator'))
+    //            );
             }
         }
     }
