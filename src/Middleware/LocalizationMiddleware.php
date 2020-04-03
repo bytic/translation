@@ -23,6 +23,7 @@ class LocalizationMiddleware implements MiddlewareInterface
     /**
      * LocalizationMiddleware constructor.
      * @param null $translator
+     * @param array $config
      */
     public function __construct($translator = null, $config = [])
     {
