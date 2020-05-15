@@ -46,10 +46,11 @@ class TranslatorServiceProviderTest extends AbstractTest
 
         $config = new Config(['app' => ['locale' => ['enabled' => $config]]]);
 
-        $container = $provider->getContainer();
-        ;
+        $container = Container::getInstance();
+
         $container->set('config', $config);
 
+        $provider->setContainer($container);
         $provider->registerLanguages();
 
         self::assertSame($return, $container->get('translation.languages'));

@@ -2,7 +2,7 @@
 
 namespace Nip\I18n;
 
-use Nip\Container\ServiceProvider\AbstractSignatureServiceProvider;
+use Nip\Container\ServiceProviders\Providers\AbstractSignatureServiceProvider;
 use Nip\I18n\Loader\PhpFileLoader;
 use Nip\I18n\Middleware\LocalizationMiddleware;
 
@@ -44,7 +44,7 @@ class TranslatorServiceProvider extends AbstractSignatureServiceProvider
     protected function registerTranslator()
     {
         $this->getContainer()
-            ->singleton('translator', function () {
+            ->share('translator', function () {
                 $translator = new Translator('en');
                 $translator->addLoader('php', new PhpFileLoader());
                 return $translator;
@@ -71,7 +71,7 @@ class TranslatorServiceProvider extends AbstractSignatureServiceProvider
 
     public function registerLanguages()
     {
-        $this->getContainer()->singleton('translation.languages', function () {
+        $this->getContainer()->share('translation.languages', function () {
             return $this->getLanguages();
         });
     }
@@ -187,6 +187,7 @@ class TranslatorServiceProvider extends AbstractSignatureServiceProvider
 //            $kernel->prependMiddleware(
     //            new LocalizationMiddleware($this->getContainer()->get('translator'))
     //        );
+            }
         }
     }
 }
