@@ -10,8 +10,6 @@ use Nip\I18n\Translator;
  */
 trait HasLanguageDefault
 {
-
-
     protected function bootLanguageDefault()
     {
         $langDefault = $this->getLanguageDefault();
@@ -29,5 +27,4 @@ trait HasLanguageDefault
         /** @noinspection PhpUndefinedFunctionInspection */
         return function_exists('config') && function_exists('app') && \app()->has('config') ? config('app.locale.default') : 'en';
     }
-
 }

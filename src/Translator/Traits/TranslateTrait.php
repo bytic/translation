@@ -46,8 +46,10 @@ trait TranslateTrait
     {
         if (!$this->formatter instanceof ChoiceMessageFormatterInterface) {
             throw new LogicException(
-                sprintf('The formatter "%s" does not support plural translations.',
-                    get_class($this->formatter))
+                sprintf(
+                    'The formatter "%s" does not support plural translations.',
+                    get_class($this->formatter)
+                )
             );
         }
         if (null === $domain) {
