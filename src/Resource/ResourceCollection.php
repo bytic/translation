@@ -40,9 +40,11 @@ class ResourceCollection extends Collection
         foreach ($this as $resource) {
             /** @var Resource $resource */
             if (!$translator->hasLoader($resource->getFormat())) {
-                throw new RuntimeException(sprintf(
-                        'The "%s" translation loader is not registered.',
-                        $resource->getFormat())
+                throw new RuntimeException(
+                    sprintf(
+                    'The "%s" translation loader is not registered.',
+                    $resource->getFormat()
+                )
                 );
             }
             $loader = $translator->getLoader($resource->getFormat());
