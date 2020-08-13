@@ -16,8 +16,13 @@ use Nip\I18n\Message\Catalogue\Traits\HasResourcesTrait;
  */
 class MessageCatalogue implements MessageCatalogueInterface, MetadataAwareInterface
 {
-    use HasLocaleTrait, HasMessagesTrait, HasCatalogueOperationsTrait, HasFallbackCatalogueTrait;
-    use HasDomainTrait, HasMetadataTrait, HasResourcesTrait;
+    use HasLocaleTrait;
+    use HasMessagesTrait;
+    use HasCatalogueOperationsTrait;
+    use HasFallbackCatalogueTrait;
+    use HasDomainTrait;
+    use HasMetadataTrait;
+    use HasResourcesTrait;
 
     protected $parent;
 

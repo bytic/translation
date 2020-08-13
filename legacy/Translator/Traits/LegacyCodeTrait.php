@@ -12,7 +12,6 @@ use Nip\Locale\Detector\LocalePersist;
  */
 trait LegacyCodeTrait
 {
-
     /**
      * @var bool
      */

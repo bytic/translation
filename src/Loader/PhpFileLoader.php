@@ -10,7 +10,6 @@ use Symfony\Component\Finder\Finder;
  */
 class PhpFileLoader extends FileLoader
 {
-
     /**
      * {@inheritdoc}
      */

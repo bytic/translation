@@ -20,8 +20,13 @@ use function Nip\url;
  */
 class Translator
 {
-    use HasLoaderTrait, HasCataloguesTrait, HasLocaleTrait;
-    use HasResourcesTrait, HasRequestTrait, TranslateTrait, HasFormatterTrait;
+    use HasLoaderTrait;
+    use HasCataloguesTrait;
+    use HasLocaleTrait;
+    use HasResourcesTrait;
+    use HasRequestTrait;
+    use TranslateTrait;
+    use HasFormatterTrait;
     use LegacyCodeTrait;
 
     /**

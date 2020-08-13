@@ -11,7 +11,6 @@ use Nip\I18n\Translator\Traits\LegacyCodeTrait;
  */
 trait BackendTrait
 {
-
     /**
      * @var Translator
      */

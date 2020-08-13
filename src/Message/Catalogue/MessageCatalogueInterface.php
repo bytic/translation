@@ -6,7 +6,7 @@ use Nip\I18n\Resource\ResourceInterface;
 
 interface MessageCatalogueInterface
 {
-    const DEFAULT_DOMAIN = 'messages';
+    public const DEFAULT_DOMAIN = 'messages';
 
     /**
      * Gets the catalogue locale.

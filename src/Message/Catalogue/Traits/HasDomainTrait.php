@@ -10,7 +10,6 @@ use Nip\I18n\Message\Catalogue\MessageCatalogueInterface;
  */
 trait HasDomainTrait
 {
-
     /**
      * {@inheritdoc}
      */

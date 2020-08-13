@@ -10,7 +10,6 @@ use Nip\I18n\Exception\InvalidArgumentException;
  */
 class LocaleValidator
 {
-
     /**
      * Asserts that the locale is valid, throws an Exception if not.
      *
