@@ -6,7 +6,6 @@ use Nip\I18n\Loader\LoaderInterface;
 
 trait HasLoaderTrait
 {
-
     /**
      * @var LoaderInterface[]
      */

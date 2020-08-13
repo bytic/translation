@@ -12,7 +12,6 @@ use Nip\I18n\Exception\LogicException;
  */
 trait HasFallbackCatalogueTrait
 {
-
     /**
      * @var MessageCatalogue
      */

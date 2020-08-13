@@ -8,8 +8,6 @@ use Nip\I18n\Tests\AbstractTest;
 
 class ResourceFactoryTest extends AbstractTest
 {
-
-
     /**
      * @dataProvider getEmptyValuesProvider
      */

@@ -15,7 +15,6 @@ use Nip\I18n\Exception\NotFoundResourceException;
  */
 abstract class FileLoader extends ArrayLoader
 {
-
     /**
      * {@inheritdoc}
      */
