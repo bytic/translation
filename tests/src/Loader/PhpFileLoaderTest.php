@@ -2,9 +2,10 @@
 
 namespace Nip\I18n\Tests\Loader;
 
-use Nip\I18n\Message\Catalogue\MessageCatalogueInterface;
 use Nip\I18n\Loader\PhpFileLoader;
+use Nip\I18n\Message\Catalogue\MessageCatalogueInterface;
 use Nip\I18n\Tests\AbstractTest;
+use const TEST_FIXTURE_PATH;
 
 /**
  * Class PhpFileLoaderTest

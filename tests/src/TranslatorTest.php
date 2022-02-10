@@ -2,8 +2,8 @@
 
 namespace Nip\I18n\Tests;
 
-use Nip\I18n\Message\Catalogue\MessageCatalogue;
 use Nip\I18n\Loader\ArrayLoader;
+use Nip\I18n\Message\Catalogue\MessageCatalogue;
 use Nip\I18n\Translator;
 
 /**

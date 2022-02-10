@@ -7,6 +7,7 @@ use Nip\Container\Container;
 use Nip\Container\ContainerInterface;
 use Nip\I18n\Translator;
 use Nip\I18n\TranslatorServiceProvider;
+use const TEST_FIXTURE_PATH;
 
 /**
  * Class TranslatorServiceProviderTest

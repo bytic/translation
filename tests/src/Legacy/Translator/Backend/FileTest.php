@@ -4,6 +4,7 @@ namespace Nip\I18n\Tests\Legacy\Translator\Backend;
 
 use Nip\I18n\Tests\AbstractTest;
 use Nip\I18n\Translator;
+use const TEST_FIXTURE_PATH;
 
 /**
  * Class FileTest
