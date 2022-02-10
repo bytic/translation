@@ -1,6 +1,6 @@
 <?php
 
-use Nip\Utility\Container;
+use Nip\Container\Utility\Container;
 
 if (!function_exists('translator')) {
     /**

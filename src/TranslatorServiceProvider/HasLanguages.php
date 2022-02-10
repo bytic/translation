@@ -59,7 +59,7 @@ trait HasLanguages
 
     /**
      * Made public to allow testing
-     * @param null $languages
+     * @param array $languages
      */
     public function setLanguages($languages)
     {
