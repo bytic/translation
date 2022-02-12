@@ -15,7 +15,7 @@ trait TranslateTrait
     /**
      * {@inheritdoc}
      */
-    public function trans($id, array $parameters = [], $domain = null, $locale = null)
+    public function trans(string $id, array $parameters = [], string $domain = null, string $locale = null): string
     {
         if (empty($domain)) {
             $domain = MessageCatalogueInterface::DEFAULT_DOMAIN;

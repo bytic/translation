@@ -2,7 +2,6 @@
 
 namespace Nip\I18n;
 
-use Nip\I18n\Translator\Backend\AbstractBackend;
 use Nip\I18n\Translator\Traits\HasCataloguesTrait;
 use Nip\I18n\Translator\Traits\HasFormatterTrait;
 use Nip\I18n\Translator\Traits\HasLoaderTrait;
@@ -12,13 +11,14 @@ use Nip\I18n\Translator\Traits\HasResourcesTrait;
 use Nip\I18n\Translator\Traits\LegacyCodeTrait;
 use Nip\I18n\Translator\Traits\TranslateTrait;
 use Nip\Locale\Detector\Pipeline\Stages\QueryStage;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use function Nip\url;
 
 /**
  * Class Translator
  * @package Nip\I18n
  */
-class Translator
+class Translator implements TranslatorInterface
 {
     use HasLoaderTrait;
     use HasCataloguesTrait;
