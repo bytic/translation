@@ -32,7 +32,7 @@
     "bytic/collections": "^1.0",
     "bytic/filesystem": "^0.9|^1.0",
     "bytic/locale-detector": "^1.0",
-    "symfony/finder": "^4.0|^5.0",
+    "symfony/finder": "^4.0|^5.0|^6.0",
     "psr/http-server-middleware": "^1.0"
   },
   "require-dev": {
@@ -41,5 +41,13 @@
     "bytic/router": "^0.9|^1.0"
   },
   "minimum-stability": "dev",
-  "prefer-stable": true
+  "prefer-stable": true,
+  "config": {
+    "allow-plugins": {
+      "phpstan/extension-installer": true,
+      "ergebnis/composer-normalize": true,
+      "dealerdirect/phpcodesniffer-composer-installer": true,
+      "bytic/phpqatools": true
+    }
+  }
 }
