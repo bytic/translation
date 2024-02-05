@@ -42,6 +42,19 @@ trait HasResourcesTrait
         }
     }
 
+    public function prependResource($format, $resource, $locale, $domain = null)
+    {
+        LocaleValidator::assertValidLocale($locale);
+        $resource = ResourceFactory::create($resource, $format, $domain);
+        $this->prependResourceToCollection($locale, $resource);
+
+        if ($this->isFallbackLocales($locale)) {
+            $this->resetCatalogues();
+        } else {
+            $this->removeCatalogue($locale);
+        }
+    }
+
     /**
      * @param $locale
      * @return Resource[]
@@ -68,6 +81,11 @@ trait HasResourcesTrait
     protected function appendResourceToCollection($locale, $resource)
     {
         $this->getResourceCollection($locale)[] = $resource;
+    }
+
+    protected function prependResourceToCollection($locale, $resource)
+    {
+        $this->getResourceCollection($locale)->prepend($resource);
     }
 
     /**
