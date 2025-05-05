@@ -53,7 +53,9 @@ class LocalizationMiddleware implements MiddlewareInterface
             /** @noinspection PhpUndefinedMethodInspection */
             $request->setLocale($detected);
             if ($this->hasTranslator()) {
-                $this->getTranslator()->setPersistedLocale($detected);
+                if ($this->getTranslator()->isSupportedLocale($detected)) {
+                    $this->getTranslator()->setPersistedLocale($detected);
+                }
             }
         }
     }
